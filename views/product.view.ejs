@@ -1,0 +1,36 @@
+<%- include('parts/header.ejs')  %> 
+<%- include('parts/navbar.ejs')  %>
+
+<% if (validationError){ %> 
+  <p class="alert alert-danger">
+    <%= validationError.msg  %> 
+  </p>
+<% } %> 
+
+<div class="row">
+    
+        <div class="col col-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="card" style="width: 18rem;">
+                <img src="/<%= products.image %> " class="card-img-top">
+                <div class="card-body">
+                  <h5 class="card-title">
+                      <a href="/product/<%= products._id  %>" ><%= products.name %> </a>
+                      <p>Price: <%= products.price  %> $ </p>
+
+                  </h5>
+                  <form action="/Cart" method="POST">
+                    <input type="number" name="qty" class="form-control">
+                    <input type="hidden" name="name" value="<%= products.name  %> ">
+                    <input type="hidden" name="price" value="<%= products.price  %> ">
+                    <input type="hidden" name="productId" value="<%= products._id  %> ">
+                    <input type="hidden" name="redirect_to" value="/product/<%= products._id %>">
+                    <input type="submit" value="Add to cart" class="btn btn-primary">
+                  </form>
+                </div>
+              </div>            
+        </div>
+    
+</div>
+<%- include('parts/footer.ejs')  %> 
+
+

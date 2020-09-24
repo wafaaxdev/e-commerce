@@ -1,0 +1,38 @@
+<%- include('parts/header')  %> 
+<%- include('parts/navbar')  %>
+
+    <div class="container">
+        <h3>Login</h3>
+        <form action="/login" method="POST">
+            <input type="text" name="username" class="form-group" placeholder="username" >
+                <% let usernameError = validationErrors.find(err=> err.param === 'username') %> 
+                    <% if (usernameError){ %> 
+                        <p class="alert alert-danger">
+                            <%=usernameError.msg %> 
+                        </p>
+                    <% } %> 
+            <input type="password" name="password" class="form-group" placeholder="Password" >
+                <% passwordError = validationErrors.find(err=> err.param ==='password') %>
+                    <% if (passwordError){ %>  
+                        <p class="alert alert-danger">
+                            <%= passwordError.msg  %> 
+                        </p>
+                    <% } %> 
+            <br>
+            <input type="submit" value="Login" class="btn btn-primary">
+        </form>
+    </div>
+
+    <% if (loginError) { %> 
+     <p class="alert alert-danger">
+        <%=loginError %> 
+     </p>   
+    <% } %> 
+
+<% if (typeof user !=='undefined'){ %> 
+    <p>Welcome </p> <%= user.username  %> 
+<% } %> 
+
+
+
+<%- include('parts/footer')  %> 

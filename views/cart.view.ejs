@@ -1,0 +1,57 @@
+<%- include('parts/header')  %> 
+<%- include('parts/navbar')  %> 
+
+<div class="container">
+    <% if(validationError){ %> 
+        <p class="alert alert-danger">
+            <%= validationError.msg  %> 
+        </p>
+    <% } %> 
+</div>
+<br>
+<div class="container">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">no</th>
+                <th scope="col">Product name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Total</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                <% for( let i = 0; i < products.length; i++ ) { %>
+                    <tr>
+                        <th scope="row"><%= i+1 %></th>
+                        <td> <%= products[i].name %>  </td>
+                        <td><%= products[i].price %> </td>
+                        <form method="POST">
+                            <td><input type="number" name="qty" value="<%= products[i].qty %>" class="form-control" ></td>
+                            <td> <%= products[i].qty * products[i].price %> $ </td>
+                            <td>                       
+                                <input type="hidden" name="cartId" value="<%= products[i]._id%>"> 
+                                <input type="hidden" name="name" value="<%= products[i].name %>">                                
+                                <input type="hidden" name="price" value="<%= products[i].price %> ">
+                                <input type="submit" value="Save" class="btn btn-success" formaction="/cart/save">
+                                <input type="submit" value="Order" class="btn btn-success" formaction="/order/v_order">
+                                <input type="submit" value="Delete" class="btn btn-danger" formaction="/cart/delete">                                
+                            </td>
+                        </form>
+                        
+                    </tr>
+                <% } %>
+            </tbody>                         
+        </table>
+        <form method="post"> 
+            <div class="float-right">
+                
+                <input type="submit" value="Order All" class="btn btn-success" formaction="">
+                <input type="submit" value="Delete All" class="btn btn-danger " formaction="/cart/delete_all">                
+            </div>
+        </form>  
+ </div>
+ 
+
+<%- include('parts/footer')  %> 
